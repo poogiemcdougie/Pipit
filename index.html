@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 
 <!-- 
     <h1>Meadow Pipit Christian Publishing</h1>
@@ -7,40 +5,125 @@
     Images/PipitLogoCover.png
 -->
 
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>Pipit</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pipit Publishing</title>
 
+    <style>
+        body {
+            margin: 20px;
+            font-family: sans-serif;
 
-<style>
-body {
-    background-image: url("Images/IonaSky.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-</style>
+            /* Background image */
+            background-image: url("Images/IonaSky.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
 
+        .header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
 
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .header-text {
+            line-height: 1.4;
+        }
+
+        .title-font {
+            font-family: Georgia, serif;
+            font-size: 36px;
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        .subtitle-font {
+            font-family: "Times New Roman", serif;
+            font-size: 22px;
+            font-weight: 800;
+            font-style: italic;
+        }
+
+        .small-bold {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .slanted-font {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            font-style: oblique;
+        }
+
+        .bottom-text {
+            position: fixed;
+            bottom: 20px;       /* Distance from bottom edge */
+            left: 20px;         /* Distance from left edge */
+            right: 20px;
+            text-align: center;
+        }
+
+    </style>
 </head>
 
+<!--
+    \hbox{\style Meadow Pipit}%
+    \hbox{\style Christian Publishing}%
+    \hbox{\cmfont{#2}\slshape Cross Stone, Yorkshire}%
+        <span class="title-font">Meadow Pipit</span><br>
+        <span class="subtitle-font">Christian Publishing</span><br>
+        <span class="small-bold">Cross Stone, Yorkshire</span>
 
-
-
-
-
-
+    Welcome to <span style="font-weight: bold;">Meadow Pipit</span>
+        Publishing.
+-->
 
 <body>
 
-    
+    <div class="header">
+        <img src="images/PipitLogoCover.png" alt="Logo" class="logo">
 
-    <p></p>
+        <div class="header-text">
+            <span class="title-font">Meadow Pipit</span><br>
+            <span class="title-font">Christian Publishing</span><br>
+            <span class="subtitle-font">Cross Stone, Yorkshire</span>
+        </div>
+    </div>
 
 
-
+    <div class="bottom-text">
+        The Wilderness, Mull, from Iona, Copyright © 2026 Meadow Pipit Christian Publishing
+    </div>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
