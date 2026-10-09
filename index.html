@@ -15,6 +15,7 @@
     <title>Pipit Publishing</title>
 
     <style>
+
         body {
             margin: 20px;
             font-family: sans-serif;
@@ -56,18 +57,6 @@
             font-style: italic;
         }
 
-        .small-bold {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .slanted-font {
-            font-family: Arial, sans-serif;
-            font-size: 20px;
-            font-style: oblique;
-        }
-
         .bottom-text {
             position: fixed;
             bottom: 20px;       /* Distance from bottom edge */
@@ -76,7 +65,39 @@
             text-align: left;   /* center */
         }
 
+        @media (max-width: 600px) {
+            body {
+                margin: 8px;
+            }
+
+            .header-text {
+                font-size: 15px;
+            }
+
+            .title-font {
+                font-size: 20px;
+            }
+            .subtitle-font {
+                font-size: 12px;
+            }
+            .bottom-text {
+                font-size: 9px;
+                left: 50px;
+            }
+
+            .logo {
+                width: 50px;
+            }
+
+            .header {
+                gap: 10px;
+            }
+
+        }
+
+
     </style>
+
 </head>
 
 <!--
