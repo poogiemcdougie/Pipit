@@ -39,7 +39,6 @@
             margin-top: 5px;
         }
 
-        /* Enlarged image overlay */
         .lightbox {
             display: none;
             position: fixed;
@@ -48,17 +47,21 @@
             background: rgba(0, 0, 0, 0.85);
             justify-content: center;
             align-items: center;
-            cursor: zoom-out;
         }
 
         .lightbox img {
-            max-width: 95vw;
-            max-height: 95vh;
+            max-width: 100vw;
+            max-height: 100vh;
             width: auto;
             height: auto;
+            object-fit: contain;
         }
+
     </style>
+
 </head>
+
+
 
 <body>
 
@@ -102,11 +105,24 @@
 
 
 
+    <!--
+        class="lightbox" — applies the .lightbox CSS rules: full-screen positioning, dark background, centring, etc.
+
+        id="lightbox" — lets JavaScript find and control the overlay.
+
+        onclick="this.style.display='none'" — clicking the overlay sets its display to none, hiding it. Here, this means the <div> that received the click.
+
+        <img id="large-image" alt=""> — the image element that JavaScript fills in with the selected image's source and alternative text.
+    -->
+
     <div class="lightbox" id="lightbox"
          onclick="this.style.display='none'">
         <img id="large-image" alt="">
     </div>
 
+    <!--
+        One subtlety: clicking the image itself also closes the overlay, because the click event bubbles up to the parent <div>. That's often desirable, but if you later add zooming and panning, you'll probably want clicks on the image to leave the overlay open.
+    -->
     <script>
         function enlarge(img) {
             const large = document.getElementById("large-image");
@@ -114,7 +130,7 @@
 
             large.src = img.src;
             large.alt = img.alt;
-            large.style.width = (img.naturalWidth * 2) + "px";
+            large.style.width = "auto";
 
             box.style.display = "flex";
         }
