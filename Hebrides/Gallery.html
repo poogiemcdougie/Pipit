@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photo Gallery</title>
+
+    <style>
+        body {
+            margin: 20px;
+            font-family: sans-serif;
+            background-color: #e8e0d0; /* Page background */
+            color: #222;
+        }
+
+        /* Gallery layout */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .gallery figure {
+            margin: 0;
+            width: 160px; /* Thumbnail width */
+        }
+
+        .gallery img {
+            display: block;
+            width: 100%;
+            height: auto;
+            cursor: zoom-in;
+        }
+
+        .gallery figcaption {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Enlarged image overlay */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox img {
+            max-width: 95vw;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Gallery</h1>
+
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        <!-- Use TextContent if captions contain reserved characters. -->
+        const photos = [
+            { name: "Pic1.jpg", caption: "" },
+            { name: "Pic2.jpg", caption: "" },
+            { name: "Pic3.jpg", caption: "" },
+            { name: "Pic4.jpg", caption: "" },
+            { name: "Pic5.jpg", caption: "" },
+            { name: "Pic6.jpg", caption: "" },
+            { name: "Pic7.jpg", caption: "" },
+            { name: "Pic8.jpg", caption: "" },
+            { name: "Pic9.jpg", caption: "" },
+            { name: "Pic10.jpg", caption: "" },
+            { name: "Pic11.jpg", caption: "" },
+            { name: "Pic12.jpg", caption: "" },
+        ];
+
+        const gallery = document.getElementById("gallery");
+
+        for (const photo of photos) {
+            const figure = document.createElement("figure");
+
+            figure.innerHTML = `
+                <img src="Images/${photo.name}"
+                    alt="${photo.caption}"
+                    onclick="enlarge(this)">
+                <figcaption>${photo.caption}</figcaption>
+            `;
+
+            gallery.appendChild(figure);
+        }
+    </script>
+
+
+
+
+    <div class="lightbox" id="lightbox"
+         onclick="this.style.display='none'">
+        <img id="large-image" alt="">
+    </div>
+
+    <script>
+        function enlarge(img) {
+            const large = document.getElementById("large-image");
+            const box = document.getElementById("lightbox");
+
+            large.src = img.src;
+            large.alt = img.alt;
+            large.style.width = (img.naturalWidth * 2) + "px";
+
+            box.style.display = "flex";
+        }
+    </script>
+
+</body>
+</html>
+
+
