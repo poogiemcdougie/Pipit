@@ -70,6 +70,28 @@
     <div class="gallery" id="gallery"></div>
 
     <script>
+
+        /**
+         * Inserts a suffix/modifier into a filename's stem while preserving its extension.
+         * 
+         * @param {string} filename - The original filename (e.g., "report.pdf")
+         * @param {string} modifier - The string to append to the stem (e.g., "_upd")
+         * @returns {string} The modified filename
+         */
+        function replaceStem(filename, modifier) {
+            const lastDotIndex = filename.lastIndexOf(".");
+            
+            // Handle files with no extension or hidden files starting with a dot (e.g., ".gitignore")
+            if (lastDotIndex <= 0) {
+                return filename + modifier;
+            }
+            
+            const stem = filename.substring(0, lastDotIndex);
+            const suffix = filename.substring(lastDotIndex); // Includes the dot (e.g., ".pdf")
+            
+            return `${stem}${modifier}${suffix}`;
+        }
+
         <!-- Use TextContent if captions contain reserved characters. -->
         const photos = [
             { name: "Pic1.jpg", caption: "" },
@@ -90,15 +112,25 @@
 
         for (const photo of photos) {
             const figure = document.createElement("figure");
-
+            s = photo.name
+            s = replaceStem(s, "_web")
+            console.log(s)
             figure.innerHTML = `
                 <img src="Images/${photo.name}"
                     alt="${photo.caption}"
                     onclick="enlarge(this)">
                 <figcaption>${photo.caption}</figcaption>
             `;
-
             gallery.appendChild(figure);
+
+            const fig = document.createElement("figure");
+            fig.innerHTML = `
+                <img src="Images/${s}"
+                    alt=""
+                    onclick="enlarge(this)">
+                <figcaption>${s}</figcaption>
+            `;
+            gallery.appendChild(fig);
         }
     </script>
 
