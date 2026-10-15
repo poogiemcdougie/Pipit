@@ -1,9 +1,35 @@
 from pathlib import Path
 import re 
 
-"""Resize JPEG images with Lanczos and save tagged copies."""
+"""
+    Resize JPEG images with Lanczos and save tagged copies.
+    Default: scan jpgs in current directory, write tagged jpgs to same directory.
+    
+        -help       Show options.
+        -dry        Dry run, show files and destinations.
+        -regex      Scan on pattern.
+        -dir        Source directory.
+        -dest_dir   Write to directory.
+        ...
 
-import argparse
+    Blame AI for initial structure, which I worked on further without a clear design!
+    If restructuring simpler logic with two interfaces as two stubs: one for scanning multiple, one for simple convert on file.
+        Single 
+            resizeimg in out -flags
+                in is required, out is optional, default uses std tagged name. 
+                Positional args, plus flags, flags can go anywhere.
+        Multiple
+            resizeimgs in out -flags
+                in/out both optional, but only one will be ambiguous - use -dest_dir for out in this case.
+
+        Not safe to infer which e.g. you could use input 'in' ?
+            If 'in' is file, we are single file mode.
+            
+
+
+"""
+
+import argparse 
 from pathlib import Path
 
 from PIL import Image, ImageOps
@@ -100,7 +126,7 @@ def main() -> int:
     )
     parser.add_argument(
         "-regex",
-        help="directory scan using regex on filename without path",
+        help="directory scan using caseless regex on filename without path",
     )
     parser.add_argument(
         "-dest_dir",
@@ -150,7 +176,7 @@ def main() -> int:
     files = []
     use_tag = True
 
-    # Might be easier to have two interfaces: one for single file and 
+    # Might be easier to have two app interfaces: one for single file and 
     # another for directory scans. But for single file quite handy to
     # have the same tagging as for multiple, and there are 
     # some common flags too.
@@ -185,7 +211,7 @@ def main() -> int:
             files = sorted(
                 p for p in base_dir.iterdir()
                 if p.is_file() and p.suffix.lower() in {".jpg", ".jpeg"} and 
-                    not tag_file(p, tag, True) and 
+                    not tag_file(p, tag, True) and # Ignore files with tag.
                     (pattern is None or re.search(pattern, p.name, re.IGNORECASE))
                 )
 
@@ -202,7 +228,7 @@ def main() -> int:
         print(f"{fullname(sce)} {fsize(sce):,} KB")
         if not args.dry and dst.is_file() and not args.force:
             parser.error(f"use -force flag to overwrite {fullname(dst)}")
-        # Do not overwrite source file by accident. dst.resolve works whether it exists or not. sce.samefile(dst) works for almost everything, but dst may not exist here.
+        # Do not overwrite source file by accident. dst.resolve works whether it exists or not. sce.samefile(dst) works for almost everything, but both must exist - dst may not exist here.
         if dst.resolve() == sce.resolve(): 
             raise ValueError(f"Trying to overwrite source file: {fullname(sce)}")            
         if not dst.parent.is_dir(): 
